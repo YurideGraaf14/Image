@@ -254,16 +254,16 @@
             const rotation = Math.min(bird.velocityY * 0.1, 0.3);
             ctx.rotate(rotation);
 
-            // Body (blue suit)
+            // Body (blue suit) - leaner design
             ctx.fillStyle = '#0056B3';
             ctx.beginPath();
-            ctx.ellipse(0, 2, 12, 10, 0, 0, Math.PI * 2);
+            ctx.ellipse(0, 3, 8, 8, 0, 0, Math.PI * 2);
             ctx.fill();
 
             // Red chest area
             ctx.fillStyle = '#DC143C';
             ctx.beginPath();
-            ctx.ellipse(0, 0, 8, 7, 0, 0, Math.PI * 2);
+            ctx.ellipse(0, 1, 6, 6, 0, 0, Math.PI * 2);
             ctx.fill();
 
             // S symbol (gold)
@@ -316,10 +316,10 @@
             ctx.closePath();
             ctx.fill();
 
-            // Legs extended back
+            // Legs extended back - leaner
             ctx.fillStyle = '#0056B3';
-            ctx.fillRect(-4, 8, 2.5, 9);
-            ctx.fillRect(1.5, 8, 2.5, 9);
+            ctx.fillRect(-3, 8, 2, 8);
+            ctx.fillRect(1, 8, 2, 8);
 
             // Boots
             ctx.fillStyle = '#000';
@@ -329,22 +329,22 @@
             // Fists (forward flying pose)
             ctx.fillStyle = '#FFD4A3';
             ctx.beginPath();
-            ctx.arc(14, -2, 3, 0, Math.PI * 2);
+            ctx.arc(12, -2, 2.5, 0, Math.PI * 2);
             ctx.fill();
             ctx.beginPath();
-            ctx.arc(-14, -2, 3, 0, Math.PI * 2);
+            ctx.arc(-12, -2, 2.5, 0, Math.PI * 2);
             ctx.fill();
 
-            // Arms
+            // Arms - leaner
             ctx.strokeStyle = '#0056B3';
-            ctx.lineWidth = 2.5;
+            ctx.lineWidth = 2;
             ctx.beginPath();
-            ctx.moveTo(8, -1);
-            ctx.lineTo(14, -2);
+            ctx.moveTo(6, 0);
+            ctx.lineTo(12, -2);
             ctx.stroke();
             ctx.beginPath();
-            ctx.moveTo(-8, -1);
-            ctx.lineTo(-14, -2);
+            ctx.moveTo(-6, 0);
+            ctx.lineTo(-12, -2);
             ctx.stroke();
 
             ctx.restore();
