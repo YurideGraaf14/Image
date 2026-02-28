@@ -303,28 +303,28 @@
             ctx.closePath();
             ctx.fill();
 
-            // Left arm extended forward
+            // Left arm extended forward - bigger fist
             ctx.fillStyle = '#FFD4A3';
             ctx.beginPath();
-            ctx.arc(-10, -2, 2.5, 0, Math.PI * 2);
+            ctx.arc(-12, -2, 4, 0, Math.PI * 2);
             ctx.fill();
             
             ctx.strokeStyle = '#0056B3';
-            ctx.lineWidth = 2;
+            ctx.lineWidth = 3;
             ctx.beginPath();
-            ctx.moveTo(-5, -1);
-            ctx.lineTo(-10, -2);
+            ctx.moveTo(-4, -1);
+            ctx.lineTo(-12, -2);
             ctx.stroke();
 
-            // Right arm down
+            // Right arm down (less important)
             ctx.fillStyle = '#FFD4A3';
             ctx.beginPath();
-            ctx.arc(-10, 3, 2.5, 0, Math.PI * 2);
+            ctx.arc(-12, 4, 3, 0, Math.PI * 2);
             ctx.fill();
             
             ctx.beginPath();
-            ctx.moveTo(-5, 2);
-            ctx.lineTo(-10, 3);
+            ctx.moveTo(-4, 2);
+            ctx.lineTo(-12, 4);
             ctx.stroke();
 
             // Legs extended back
