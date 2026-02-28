@@ -202,6 +202,21 @@
         // Update high score display
         document.getElementById('highScoreDisplay').textContent = highScore;
 
+        // Add first pipe
+        function addNewPipe() {
+            const minHeight = 50;
+            const maxHeight = canvas.height - pipeGap - 50;
+            const randomHeight = Math.floor(Math.random() * (maxHeight - minHeight)) + minHeight;
+            pipes.push({
+                x: canvas.width,
+                topHeight: randomHeight,
+                passed: false
+            });
+        }
+
+        // Add initial pipe
+        addNewPipe();
+
         // Draw bird
         function drawBird() {
             ctx.fillStyle = '#ffff00';
@@ -263,15 +278,8 @@
             pipes = pipes.filter(pipe => pipe.x + pipeWidth > 0);
 
             // Add new pipe
-            if (frameCount % pipeDistance === 0) {
-                const minHeight = 50;
-                const maxHeight = canvas.height - pipeGap - 50;
-                const randomHeight = Math.floor(Math.random() * (maxHeight - minHeight)) + minHeight;
-                pipes.push({
-                    x: canvas.width,
-                    topHeight: randomHeight,
-                    passed: false
-                });
+            if (frameCount % pipeDistance === 0 && frameCount > 0) {
+                addNewPipe();
             }
         }
 
@@ -358,6 +366,7 @@
             bird.y = canvas.height / 2;
             bird.velocity = 0;
             pipes.length = 0;
+            addNewPipe();
             score = 0;
             document.getElementById('score').textContent = score;
             gameOver = false;
