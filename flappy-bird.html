@@ -316,7 +316,7 @@
 
             // Update pipes
             for (let i = pipes.length - 1; i >= 0; i--) {
-                pipes[i].x -= 3;  // Slower pipe movement
+                pipes[i].x -= 2;  // Even slower pipe movement
 
                 // Check if bird passed pipe
                 if (pipes[i].x + PIPE_WIDTH < bird.x && !pipes[i].scored) {
