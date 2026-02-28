@@ -52,7 +52,8 @@
         }
 
         #gameCanvas {
-            background: linear-gradient(180deg, #87ceeb 0%, #e0f6ff 100%);
+            /* battlefield background will be drawn in canvas JS; keep fallback dark color */
+            background: #444;
             border: 3px solid #ffff00;
             display: block;
             margin: 20px auto;
@@ -297,6 +298,32 @@
             ctx.restore();
         }
 
+        function drawBackground() {
+            // make a moody battlefield sky with gradients and rubble
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            skyGrad.addColorStop(0, '#444');
+            skyGrad.addColorStop(0.4, '#555');
+            skyGrad.addColorStop(0.6, '#333');
+            skyGrad.addColorStop(1, '#222');
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // ground dirt patches
+            ctx.fillStyle = '#2a2a2a';
+            ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
+
+            // random rubble / craters
+            for (let i = 0; i < 25; i++) {
+                const size = 10 + Math.random() * 20;
+                const x = Math.random() * canvas.width;
+                const y = canvas.height - 50 + Math.random() * 30;
+                ctx.fillStyle = 'rgba(100,100,100,0.6)';
+                ctx.beginPath();
+                ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
         function drawPipes() {
             // create a glowing laser gradient
             pipes.forEach(pipe => {
@@ -382,23 +409,19 @@
         }
 
         function draw() {
-            // Draw sky gradient
-            const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            gradient.addColorStop(0, '#87ceeb');
-            gradient.addColorStop(1, '#e0f6ff');
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Draw score (simple for testing)
-            ctx.fillStyle = '#000';
-            ctx.font = 'bold 32px Arial';
-            ctx.fillText('Score: ' + score, 20, 50);
+            // battlefield background
+            drawBackground();
 
             // Draw pipes
             drawPipes();
             
             // Draw bird
             drawBird();
+
+            // Draw score (simple for testing)
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 32px Arial';
+            ctx.fillText('Score: ' + score, 20, 50);
 
             // Draw game over overlay
             if (gameOver) {
