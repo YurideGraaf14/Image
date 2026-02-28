@@ -97,31 +97,7 @@
             box-shadow: 0 0 30px rgba(255, 255, 0, 0.5);
         }
 
-        .leaderboard {
-            position: absolute;
-            right: -220px;
-            top: 0;
-            width: 200px;
-            background: rgba(0,0,0,0.8);
-            border: 2px solid #ffff00;
-            padding: 10px;
-            color: #fff;
-            font-size: 12px;
-        }
-
-        .leaderboard table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .leaderboard th, .leaderboard td {
-            padding: 2px;
-            text-align: left;
-        }
-
-        .leaderboard th {
-            border-bottom: 1px solid #fff;
-        }
+        
 
         .game-over-modal h2 {
             color: #ffff00;
@@ -186,25 +162,11 @@
         <div class="game-wrapper">
             <canvas id="gameCanvas" width="400" height="600"></canvas>
 
-            <div id="leaderboard" class="leaderboard">
-                <h3>Leaderboard</h3>
-                <table>
-                    <thead>
-                        <tr><th>Rank</th><th>Name</th><th>Score</th></tr>
-                    </thead>
-                    <tbody id="leaderboardBody">
-                        <!-- entries filled by script -->
-                    </tbody>
-                </table>
-            </div>
-
             <div class="game-over-modal" id="gameOverModal">
                 <h2>GAME OVER</h2>
                 <p>Final Score: <span id="finalScore">0</span></p>
                 <p>High Score: <span id="highScoreDisplay">0</span></p>
-                <input type="text" id="playerName" placeholder="Your name" maxlength="10" />
-                <button onclick="saveScore()">Submit Score</button>
-                <br/><button onclick="restartGame()">Play Again</button>
+                <button onclick="restartGame()">Play Again</button>
             </div>
         </div>
 
@@ -223,43 +185,7 @@
         }
         const ctx = canvas.getContext('2d');
 
-        // ask for player name when page opens if none stored
-        function requestPlayerName() {
-            let name = localStorage.getItem('flappyPlayerName') || '';
-            if (!name) {
-                name = prompt('Please enter a username for Flappy Bird:');
-                if (name) {
-                    name = name.trim();
-                }
-                name = name || '';
-                localStorage.setItem('flappyPlayerName', name);
-            }
-            const nameInput = document.getElementById('playerName');
-            if (nameInput) nameInput.value = name;
-        }
-        requestPlayerName();
 
-        // leaderboard data stored locally (global requires backend)
-        const leaderboardKey = 'flappyBirdLeaderboard';
-        function loadLeaderboard() {
-            const data = localStorage.getItem(leaderboardKey);
-            return data ? JSON.parse(data) : [];
-        }
-        function saveLeaderboard(list) {
-            localStorage.setItem(leaderboardKey, JSON.stringify(list));
-        }
-        function updateLeaderboardDisplay() {
-            const list = loadLeaderboard();
-            list.sort((a,b) => b.score - a.score);
-            const body = document.getElementById('leaderboardBody');
-            body.innerHTML = '';
-            list.slice(0,5).forEach((entry, idx) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${idx+1}</td><td>${entry.name}</td><td>${entry.score}</td>`;
-                body.appendChild(row);
-            });
-        }
-        updateLeaderboardDisplay();
 
         // Game constants
         const GRAVITY = 0.2;
@@ -599,33 +525,10 @@
             document.getElementById('finalScore').textContent = score;
             document.getElementById('highScoreDisplay').textContent = highScore;
             document.getElementById('gameOverModal').style.display = 'block';
-            // automatically save to leaderboard using stored name
-            saveScore();
+
         }
 
-        function saveScore() {
-            const nameInput = document.getElementById('playerName');
-            let name = (nameInput && nameInput.value.trim()) || localStorage.getItem('flappyPlayerName') || '';
-            if (!name) {
-                // ask user for a name so leaderboard isn't anonymous
-                name = prompt('Enter your name for the leaderboard:', '') || '';
-            }
-            name = name.trim() || 'Anonymous';
-            localStorage.setItem('flappyPlayerName', name);
-            const list = loadLeaderboard();
-            const existingIndex = list.findIndex(e => e.name === name);
-            if (existingIndex >= 0) {
-                if (score > list[existingIndex].score) {
-                    list[existingIndex].score = score; // update to higher
-                }
-            } else {
-                list.push({ name, score });
-            }
-            saveLeaderboard(list);
-            updateLeaderboardDisplay();
-            if (nameInput) nameInput.value = '';
-            document.getElementById('gameOverModal').style.display = 'none';
-        }
+
 
         function restartGame() {
             bird = {
