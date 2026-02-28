@@ -583,16 +583,27 @@
             document.getElementById('finalScore').textContent = score;
             document.getElementById('highScoreDisplay').textContent = highScore;
             document.getElementById('gameOverModal').style.display = 'block';
+            // automatically save to leaderboard using stored name
+            saveScore();
         }
 
         function saveScore() {
             const nameInput = document.getElementById('playerName');
-            const name = nameInput.value.trim() || 'Anonymous';
+            let name = (nameInput && nameInput.value.trim()) || localStorage.getItem('flappyPlayerName') || 'Anonymous';
+            name = name || 'Anonymous';
+            localStorage.setItem('flappyPlayerName', name);
             const list = loadLeaderboard();
-            list.push({ name, score });
+            const existingIndex = list.findIndex(e => e.name === name);
+            if (existingIndex >= 0) {
+                if (score > list[existingIndex].score) {
+                    list[existingIndex].score = score; // update to higher
+                }
+            } else {
+                list.push({ name, score });
+            }
             saveLeaderboard(list);
             updateLeaderboardDisplay();
-            nameInput.value = '';
+            if (nameInput) nameInput.value = '';
             document.getElementById('gameOverModal').style.display = 'none';
         }
 
