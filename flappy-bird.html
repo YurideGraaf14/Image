@@ -81,7 +81,7 @@
             font-size: 14px;
         }
 
-        .game-over-modal {
+.game-over-modal {
             display: none;
             position: absolute;
             top: 50%;
@@ -95,6 +95,32 @@
             border: 3px solid #ffff00;
             min-width: 300px;
             box-shadow: 0 0 30px rgba(255, 255, 0, 0.5);
+        }
+
+        .leaderboard {
+            position: absolute;
+            right: -220px;
+            top: 0;
+            width: 200px;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #ffff00;
+            padding: 10px;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .leaderboard table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard th, .leaderboard td {
+            padding: 2px;
+            text-align: left;
+        }
+
+        .leaderboard th {
+            border-bottom: 1px solid #fff;
         }
 
         .game-over-modal h2 {
@@ -159,11 +185,26 @@
 
         <div class="game-wrapper">
             <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+            <div id="leaderboard" class="leaderboard">
+                <h3>Leaderboard</h3>
+                <table>
+                    <thead>
+                        <tr><th>Rank</th><th>Name</th><th>Score</th></tr>
+                    </thead>
+                    <tbody id="leaderboardBody">
+                        <!-- entries filled by script -->
+                    </tbody>
+                </table>
+            </div>
+
             <div class="game-over-modal" id="gameOverModal">
                 <h2>GAME OVER</h2>
                 <p>Final Score: <span id="finalScore">0</span></p>
                 <p>High Score: <span id="highScoreDisplay">0</span></p>
-                <button onclick="restartGame()">Play Again</button>
+                <input type="text" id="playerName" placeholder="Your name" maxlength="10" />
+                <button onclick="saveScore()">Submit Score</button>
+                <br/><button onclick="restartGame()">Play Again</button>
             </div>
         </div>
 
@@ -181,6 +222,28 @@
             console.error('Canvas not found!');
         }
         const ctx = canvas.getContext('2d');
+
+        // leaderboard data stored locally (global requires backend)
+        const leaderboardKey = 'flappyBirdLeaderboard';
+        function loadLeaderboard() {
+            const data = localStorage.getItem(leaderboardKey);
+            return data ? JSON.parse(data) : [];
+        }
+        function saveLeaderboard(list) {
+            localStorage.setItem(leaderboardKey, JSON.stringify(list));
+        }
+        function updateLeaderboardDisplay() {
+            const list = loadLeaderboard();
+            list.sort((a,b) => b.score - a.score);
+            const body = document.getElementById('leaderboardBody');
+            body.innerHTML = '';
+            list.slice(0,5).forEach((entry, idx) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `<td>${idx+1}</td><td>${entry.name}</td><td>${entry.score}</td>`;
+                body.appendChild(row);
+            });
+        }
+        updateLeaderboardDisplay();
 
         // Game constants
         const GRAVITY = 0.2;
@@ -520,6 +583,17 @@
             document.getElementById('finalScore').textContent = score;
             document.getElementById('highScoreDisplay').textContent = highScore;
             document.getElementById('gameOverModal').style.display = 'block';
+        }
+
+        function saveScore() {
+            const nameInput = document.getElementById('playerName');
+            const name = nameInput.value.trim() || 'Anonymous';
+            const list = loadLeaderboard();
+            list.push({ name, score });
+            saveLeaderboard(list);
+            updateLeaderboardDisplay();
+            nameInput.value = '';
+            document.getElementById('gameOverModal').style.display = 'none';
         }
 
         function restartGame() {
