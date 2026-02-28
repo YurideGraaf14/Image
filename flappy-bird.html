@@ -302,20 +302,20 @@
             pipes.forEach(pipe => {
                 const createLaser = (x, y, width, height) => {
                     const gradient = ctx.createLinearGradient(x, y, x + width, y);
-                    gradient.addColorStop(0, 'rgba(0,255,0,0.8)');
-                    gradient.addColorStop(0.5, 'rgba(0,255,0,0.3)');
-                    gradient.addColorStop(1, 'rgba(0,255,0,0.8)');
+                    gradient.addColorStop(0, 'rgba(255,0,0,0.8)');
+                    gradient.addColorStop(0.5, 'rgba(255,0,0,0.3)');
+                    gradient.addColorStop(1, 'rgba(255,0,0,0.8)');
 
                     ctx.fillStyle = gradient;
                     ctx.fillRect(x, y, width, height);
 
                     // outer glow
-                    ctx.strokeStyle = 'rgba(0,255,0,0.9)';
+                    ctx.strokeStyle = 'rgba(255,0,0,0.9)';
                     ctx.lineWidth = 3;
                     ctx.strokeRect(x, y, width, height);
 
                     // inner beam lines for effect
-                    ctx.strokeStyle = 'rgba(0,255,0,0.5)';
+                    ctx.strokeStyle = 'rgba(255,0,0,0.5)';
                     ctx.lineWidth = 1;
                     for (let i = y + 5; i < y + height; i += 10) {
                         ctx.beginPath();
