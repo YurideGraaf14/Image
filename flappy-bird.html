@@ -204,6 +204,24 @@
         let highScore = localStorage.getItem('flappyBirdHighScore') || 0;
         let pipeCounter = 0;
 
+        // battlefield buildings and smoke
+        let buildings = [];
+        let smokePuffs = [];
+
+        function createBuildings() {
+            const count = 5;
+            const spacing = canvas.width / count;
+            for (let i = 0; i < count; i++) {
+                const w = 50 + Math.random() * 30;
+                const h = 100 + Math.random() * 150;
+                const x = i * spacing + (spacing - w) / 2;
+                const burning = Math.random() < 0.7;
+                buildings.push({ x, w, h, burning });
+            }
+        }
+
+        createBuildings();
+
         console.log('Canvas:', canvas, 'Width:', canvas.width, 'Height:', canvas.height);
         document.getElementById('highScoreDisplay').textContent = highScore;
 
@@ -299,7 +317,7 @@
         }
 
         function drawBackground() {
-            // make a moody battlefield sky with gradients and rubble
+            // make a moody battlefield sky with gradients
             const skyGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
             skyGrad.addColorStop(0, '#444');
             skyGrad.addColorStop(0.4, '#555');
@@ -307,6 +325,58 @@
             skyGrad.addColorStop(1, '#222');
             ctx.fillStyle = skyGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // draw buildings in the distance
+            buildings.forEach(b => {
+                const bx = b.x;
+                const by = canvas.height - 50 - b.h;
+                ctx.fillStyle = '#333';
+                ctx.fillRect(bx, by, b.w, b.h);
+
+                // broken windows / holes
+                ctx.fillStyle = '#555';
+                for (let j = 0; j < 3; j++) {
+                    const hx = bx + Math.random() * b.w;
+                    const hy = by + Math.random() * b.h;
+                    ctx.fillRect(hx, hy, 5, 5);
+                }
+
+                if (b.burning) {
+                    // flickering flame
+                    const flameHeight = 20 + Math.random() * 10;
+                    ctx.fillStyle = 'orange';
+                    ctx.beginPath();
+                    ctx.moveTo(bx + b.w / 2, by);
+                    ctx.lineTo(bx + b.w / 2 - 5, by - flameHeight);
+                    ctx.lineTo(bx + b.w / 2 + 5, by - flameHeight);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    // spawn smoke occasionally
+                    if (Math.random() < 0.1) {
+                        smokePuffs.push({
+                            x: bx + b.w / 2,
+                            y: by - flameHeight,
+                            size: 5 + Math.random() * 10,
+                            alpha: 1
+                        });
+                    }
+                }
+            });
+
+            // update and draw smoke
+            smokePuffs.forEach((s, idx) => {
+                s.y -= 1.5;
+                s.alpha -= 0.01;
+                if (s.alpha <= 0) {
+                    smokePuffs.splice(idx, 1);
+                } else {
+                    ctx.fillStyle = `rgba(120,120,120,${s.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
 
             // ground dirt patches
             ctx.fillStyle = '#2a2a2a';
