@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Philippines Presentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .presentation-container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            padding: 60px 40px;
+            min-height: 600px;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide h1 {
+            font-size: 3.5em;
+            color: #003d82;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .slide h2 {
+            font-size: 2.5em;
+            color: #0066cc;
+            margin-bottom: 30px;
+        }
+
+        .slide p, .slide li {
+            font-size: 1.2em;
+            color: #444;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+
+        .slide ul {
+            text-align: left;
+            max-width: 600px;
+            margin: 30px auto;
+            list-style-position: inside;
+        }
+
+        .slide li {
+            margin: 15px 0;
+        }
+
+        .slide-emoji {
+            font-size: 100px;
+            margin: 20px 0;
+        }
+
+        .slide.title {
+            background: linear-gradient(135deg, #003d82 0%, #0066cc 100%);
+            color: white;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .slide.title h1 {
+            color: white;
+            font-size: 4em;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .slide.title .slide-emoji {
+            font-size: 150px;
+        }
+
+        .slide.title p {
+            color: white;
+            font-size: 1.5em;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: #003d82;
+        }
+
+        button {
+            background: white;
+            color: #003d82;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #0066cc;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        .slide-counter {
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-right: auto;
+            padding: 8px 15px;
+            border: 2px solid white;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: white;
+            color: #003d82;
+        }
+
+        .stat-box {
+            background: #e8f4f8;
+            border-left: 5px solid #0066cc;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        .stat-box strong {
+            color: #003d82;
+            font-size: 1.3em;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 40px 20px;
+                min-height: auto;
+            }
+
+            .slide h1 {
+                font-size: 2.5em;
+            }
+
+            .slide h2 {
+                font-size: 2em;
+            }
+
+            .slide p, .slide li {
+                font-size: 1em;
+            }
+
+            .slide-emoji {
+                font-size: 60px;
+            }
+
+            .controls {
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 15px 20px;
+            }
+
+            button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .back-link {
+                width: 100%;
+                text-align: center;
+                margin: 0 0 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide title active">
+            <div class="slide-emoji">🇵🇭</div>
+            <h1>The Philippines</h1>
+            <p>Discover the Pearl of the Orient Seas</p>
+        </div>
+
+        <!-- Slide 2: Overview -->
+        <div class="slide">
+            <h2>Overview</h2>
+            <div class="stat-box">
+                <strong>Capital:</strong> Manila
+            </div>
+            <div class="stat-box">
+                <strong>Population:</strong> ~110 million people
+            </div>
+            <div class="stat-box">
+                <strong>Official Language:</strong> Filipino (Tagalog) & English
+            </div>
+            <div class="stat-box">
+                <strong>Currency:</strong> Philippine Peso (PHP)
+            </div>
+        </div>
+
+        <!-- Slide 3: Geography -->
+        <div class="slide">
+            <h2>Geography</h2>
+            <div class="slide-emoji">🏝️</div>
+            <ul>
+                <li><strong>Location:</strong> Southeast Asia, in the Pacific Ocean</li>
+                <li><strong>Archipelago:</strong> 7,641 islands</li>
+                <li><strong>Major Islands:</strong> Luzon, Visayas, Mindanao</li>
+                <li><strong>Area:</strong> 343,595 km² (132,612 sq mi)</li>
+                <li><strong>Terrain:</strong> Tropical, mountainous, with active volcanoes</li>
+            </ul>
+        </div>
+
+        <!-- Slide 4: Natural Wonders -->
+        <div class="slide">
+            <h2>Natural Wonders</h2>
+            <div class="slide-emoji">🌋⛰️🏞️</div>
+            <ul>
+                <li><strong>Boracay:</strong> World-famous white sand beach</li>
+                <li><strong>Palawan:</strong> UNESCO World Heritage sites including Puerto Princesa Subterranean River</li>
+                <li><strong>Rice Terraces:</strong> Ancient Banaue Rice Terraces, 2,000 years old</li>
+                <li><strong>Taal Volcano:</strong> Smallest active volcano in the world</li>
+                <li><strong>Coral Reefs:</strong> Part of the Coral Triangle, one of the richest marine ecosystems</li>
+            </ul>
+        </div>
+
+        <!-- Slide 5: Culture & Traditions -->
+        <div class="slide">
+            <h2>Culture & Traditions</h2>
+            <div class="slide-emoji">🎭🎨🎵</div>
+            <ul>
+                <li><strong>Religion:</strong> Predominantly Catholic (83%)</li>
+                <li><strong>Festivals:</strong> Sinulog, Ati-Atihan, Panagbenga</li>
+                <li><strong>Arts:</strong> Traditional weaving, wood carving, storytelling</li>
+                <li><strong>Music:</strong> Kundiman (love songs), OPM (Original Pilipino Music)</li>
+                <li><strong>Food:</strong> Adobo, Sinigang, Lumpia, Balut</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6: History -->
+        <div class="slide">
+            <h2>History</h2>
+            <div class="slide-emoji">📚⚔️</div>
+            <ul>
+                <li><strong>Pre-Colonial:</strong> Independent kingdoms and sultanates</li>
+                <li><strong>1565-1898:</strong> Spanish colonization (333 years)</li>
+                <li><strong>1898-1946:</strong> American colonization</li>
+                <li><strong>June 12, 1898:</strong> Philippine Declaration of Independence</li>
+                <li><strong>July 4, 1946:</strong> Independence from the United States</li>
+                <li><strong>1987:</strong> EDSA Revolution, new constitution established</li>
+            </ul>
+        </div>
+
+        <!-- Slide 7: Economy -->
+        <div class="slide">
+            <h2>Economy</h2>
+            <div class="slide-emoji">💼💰📊</div>
+            <ul>
+                <li><strong>GDP:</strong> ~$500+ billion (12th largest in Asia)</li>
+                <li><strong>Major Industries:</strong> Agriculture, manufacturing, services, tourism</li>
+                <li><strong>Exports:</strong> Electronics, agriculture, minerals, garments</li>
+                <li><strong>Key Sectors:</strong> Business Process Outsourcing (BPO), remittances from overseas workers</li>
+                <li><strong>Tech Hub:</strong> Growing startup and tech ecosystem</li>
+            </ul>
+        </div>
+
+        <!-- Slide 8: People & Society -->
+        <div class="slide">
+            <h2>People & Society</h2>
+            <div class="slide-emoji">👥❤️</div>
+            <ul>
+                <li><strong>Diversity:</strong> 180+ ethnic groups, rich cultural heritage</li>
+                <li><strong>Languages:</strong> 8+ major languages and numerous dialects</li>
+                <li><strong>Hospitality:</strong> Known for "bayanihan" (communal unity) spirit</li>
+                <li><strong>Family-Oriented:</strong> Strong emphasis on family values</li>
+                <li><strong>Global Presence:</strong> 12+ million overseas Filipino workers worldwide</li>
+            </ul>
+        </div>
+
+        <!-- Slide 9: Education & Innovation -->
+        <div class="slide">
+            <h2>Education & Innovation</h2>
+            <div class="slide-emoji">🎓💡🔬</div>
+            <ul>
+                <li><strong>Universities:</strong> De La Salle University, University of the Philippines, Ateneo de Manila</li>
+                <li><strong>Tech Companies:</strong> AirAsia, Lazada, Grab Philippines, and many startups</li>
+                <li><strong>Research:</strong> Growing investments in science and technology</li>
+                <li><strong>Skilled Workforce:</strong> High literacy rate of 98%</li>
+            </ul>
+        </div>
+
+        <!-- Slide 10: Challenges & Future -->
+        <div class="slide">
+            <h2>Challenges & Opportunities</h2>
+            <div class="slide-emoji">🌍🚀💪</div>
+            <ul>
+                <li><strong>Climate Change:</strong> Vulnerable to typhoons and rising sea levels</li>
+                <li><strong>Sustainable Development:</strong> Focus on renewable energy and environmental protection</li>
+                <li><strong>Economic Growth:</strong> Aiming to be an upper-middle income country by 2040</li>
+                <li><strong>Infrastructure:</strong> Massive investments in infrastructure development (Build, Build, Build)</li>
+                <li><strong>Innovation Hub:</strong> Becoming a regional center for technology and startups</li>
+            </ul>
+        </div>
+
+        <!-- Slide 11: Conclusion -->
+        <div class="slide title">
+            <div class="slide-emoji">🌟</div>
+            <h1>Thank You!</h1>
+            <p>Mabuhay ang Pilipinas!</p>
+            <p style="font-size: 1.2em; margin-top: 30px;"><i>"Ang Pilipinas para sa mga Pilipino"</i></p>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <a href="index.html" class="back-link">← Back to Projects</a>
+            <button id="prevBtn" onclick="previousSlide()">← Previous</button>
+            <span class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">11</span></span>
+            <button id="nextBtn" onclick="nextSlide()">Next →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        document.getElementById('totalSlides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[n].classList.add('active');
+            document.getElementById('currentSlide').textContent = n + 1;
+
+            // Update button states
+            document.getElementById('prevBtn').disabled = n === 0;
+            document.getElementById('nextBtn').disabled = n === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') previousSlide();
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>
