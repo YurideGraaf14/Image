@@ -298,20 +298,40 @@
         }
 
         function drawPipes() {
-            ctx.fillStyle = '#228B22';
-            
+            // create a glowing laser gradient
             pipes.forEach(pipe => {
-                // Top pipe
-                ctx.fillRect(pipe.x, 0, PIPE_WIDTH, pipe.topHeight);
-                ctx.strokeStyle = '#1a5c1a';
-                ctx.lineWidth = 2;
-                ctx.strokeRect(pipe.x, 0, PIPE_WIDTH, pipe.topHeight);
+                const createLaser = (x, y, width, height) => {
+                    const gradient = ctx.createLinearGradient(x, y, x + width, y);
+                    gradient.addColorStop(0, 'rgba(0,255,0,0.8)');
+                    gradient.addColorStop(0.5, 'rgba(0,255,0,0.3)');
+                    gradient.addColorStop(1, 'rgba(0,255,0,0.8)');
 
-                // Bottom pipe
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(x, y, width, height);
+
+                    // outer glow
+                    ctx.strokeStyle = 'rgba(0,255,0,0.9)';
+                    ctx.lineWidth = 3;
+                    ctx.strokeRect(x, y, width, height);
+
+                    // inner beam lines for effect
+                    ctx.strokeStyle = 'rgba(0,255,0,0.5)';
+                    ctx.lineWidth = 1;
+                    for (let i = y + 5; i < y + height; i += 10) {
+                        ctx.beginPath();
+                        ctx.moveTo(x, i);
+                        ctx.lineTo(x + width, i);
+                        ctx.stroke();
+                    }
+                };
+
+                // Top laser
+                createLaser(pipe.x, 0, PIPE_WIDTH, pipe.topHeight);
+
+                // Bottom laser
                 const bottomPipeY = pipe.topHeight + PIPE_GAP;
                 const bottomPipeHeight = canvas.height - bottomPipeY;
-                ctx.fillRect(pipe.x, bottomPipeY, PIPE_WIDTH, bottomPipeHeight);
-                ctx.strokeRect(pipe.x, bottomPipeY, PIPE_WIDTH, bottomPipeHeight);
+                createLaser(pipe.x, bottomPipeY, PIPE_WIDTH, bottomPipeHeight);
             });
         }
 
