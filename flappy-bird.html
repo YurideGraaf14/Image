@@ -219,23 +219,53 @@
 
         // Draw bird
         function drawBird() {
+            ctx.save();
+            ctx.translate(bird.x + bird.width / 2, bird.y + bird.height / 2);
+            
+            // Rotate bird based on velocity
+            const angle = Math.min(Math.max(bird.velocity / 10, -0.5), 0.5);
+            ctx.rotate(angle);
+
+            // Bird body (arrow/triangle)
             ctx.fillStyle = '#ffff00';
             ctx.beginPath();
-            ctx.arc(bird.x + bird.width / 2, bird.y + bird.height / 2, bird.width / 2, 0, Math.PI * 2);
+            ctx.moveTo(10, 0);           // Tip of arrow
+            ctx.lineTo(-10, -8);         // Left top
+            ctx.lineTo(-5, 0);           // Left middle
+            ctx.lineTo(-10, 8);          // Left bottom
+            ctx.closePath();
+            ctx.fill();
+
+            // Bird outline
+            ctx.strokeStyle = '#ffaa00';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Left wing
+            ctx.fillStyle = '#ff8c00';
+            ctx.beginPath();
+            ctx.moveTo(-5, -5);
+            ctx.lineTo(-12, -6);
+            ctx.lineTo(-10, -2);
+            ctx.closePath();
+            ctx.fill();
+
+            // Right wing
+            ctx.fillStyle = '#ff8c00';
+            ctx.beginPath();
+            ctx.moveTo(-5, 5);
+            ctx.lineTo(-12, 6);
+            ctx.lineTo(-10, 2);
+            ctx.closePath();
             ctx.fill();
 
             // Eye
             ctx.fillStyle = '#000';
             ctx.beginPath();
-            ctx.arc(bird.x + bird.width / 2 + 5, bird.y + bird.height / 2 - 3, 3, 0, Math.PI * 2);
+            ctx.arc(5, -2, 2, 0, Math.PI * 2);
             ctx.fill();
 
-            // Wing
-            ctx.strokeStyle = '#ffaa00';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(bird.x + bird.width / 2, bird.y + bird.height / 2, bird.width / 2 - 2, 0, Math.PI * 2);
-            ctx.stroke();
+            ctx.restore();
         }
 
         // Draw pipes
