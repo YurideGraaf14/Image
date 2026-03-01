@@ -250,92 +250,104 @@
             ctx.save();
             ctx.translate(bird.x, bird.y);
             
-            // Superman stays horizontal - no rotation
+            // Superman in proud pose - chest puffed, fists on hips
 
-            // Body (blue suit) - horizontal
+            // Body (blue suit) - main torso
             ctx.fillStyle = '#0056B3';
             ctx.beginPath();
-            ctx.ellipse(0, 0, 14, 7, 0, 0, Math.PI * 2);
+            ctx.ellipse(0, 0, 12, 10, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Red chest area
+            // Large red chest area - PROUD AND PUFFED OUT
             ctx.fillStyle = '#DC143C';
             ctx.beginPath();
-            ctx.ellipse(-2, 0, 7, 5, 0, 0, Math.PI * 2);
+            ctx.ellipse(-1, -2, 9, 8, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // S symbol (gold)
+            // S symbol (gold) - prominent
             ctx.fillStyle = '#FFD700';
-            ctx.font = 'bold 8px Arial';
+            ctx.font = 'bold 10px Arial';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
-            ctx.fillText('S', -2, 0);
+            ctx.fillText('S', -1, -1);
 
-            // Head (skin) - on right side facing right
+            // Head (skin) - on right side facing right, confident expression
             ctx.fillStyle = '#FFD4A3';
             ctx.beginPath();
-            ctx.arc(14, -2, 5, 0, Math.PI * 2);
+            ctx.arc(14, -3, 6, 0, Math.PI * 2);
             ctx.fill();
 
-            // Hair (black)
+            // Hair (black) - slicked back heroically
             ctx.fillStyle = '#000';
             ctx.beginPath();
-            ctx.moveTo(12, -5);
-            ctx.quadraticCurveTo(14, -8, 18, -8);
-            ctx.lineTo(16, -6);
-            ctx.quadraticCurveTo(14, -6, 12, -5);
+            ctx.moveTo(10, -7);
+            ctx.quadraticCurveTo(14, -10, 19, -9);
+            ctx.lineTo(18, -5);
+            ctx.quadraticCurveTo(14, -7, 10, -7);
             ctx.closePath();
             ctx.fill();
 
-            // Eyes
+            // Eyes - confident look
             ctx.fillStyle = '#000';
             ctx.beginPath();
-            ctx.arc(16, -3, 0.8, 0, Math.PI * 2);
+            ctx.arc(16, -4, 1, 0, Math.PI * 2);
             ctx.fill();
 
-            // Cape (red) - flowing back
+            // Jaw/chin definition
+            ctx.fillStyle = '#E0B090';
+            ctx.beginPath();
+            ctx.arc(14, 2, 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Cape (red) - flowing dramatically behind
             ctx.fillStyle = '#DC143C';
             ctx.beginPath();
-            ctx.moveTo(-10, -5);
-            ctx.lineTo(-25, -8);
-            ctx.lineTo(-28, 8);
-            ctx.lineTo(-10, 5);
+            ctx.moveTo(-8, -7);
+            ctx.lineTo(-22, -12);
+            ctx.lineTo(-25, 12);
+            ctx.lineTo(-8, 7);
             ctx.closePath();
             ctx.fill();
 
-            // Left arm extended forward - bigger fist
+            // LEFT ARM - Fist on hip (PROUD POSE)
             ctx.fillStyle = '#FFD4A3';
+            // Upper arm
             ctx.beginPath();
-            ctx.arc(-12, -2, 4, 0, Math.PI * 2);
+            ctx.ellipse(-8, -5, 3, 2, 0.3, 0, Math.PI * 2);
             ctx.fill();
-            
-            ctx.strokeStyle = '#0056B3';
-            ctx.lineWidth = 3;
+            // Fist at hip
             ctx.beginPath();
-            ctx.moveTo(-4, -1);
-            ctx.lineTo(-12, -2);
-            ctx.stroke();
+            ctx.arc(-11, -3, 4, 0, Math.PI * 2);
+            ctx.fill();
+            // Thumb
+            ctx.beginPath();
+            ctx.arc(-13, -5, 1.2, 0, Math.PI * 2);
+            ctx.fill();
 
-            // Right arm down (less important)
+            // RIGHT ARM - Fist on hip (PROUD POSE)
             ctx.fillStyle = '#FFD4A3';
+            // Upper arm
             ctx.beginPath();
-            ctx.arc(-12, 4, 3, 0, Math.PI * 2);
+            ctx.ellipse(-8, 5, 3, 2, -0.3, 0, Math.PI * 2);
             ctx.fill();
-            
+            // Fist at hip
             ctx.beginPath();
-            ctx.moveTo(-4, 2);
-            ctx.lineTo(-12, 4);
-            ctx.stroke();
+            ctx.arc(-11, 3, 4, 0, Math.PI * 2);
+            ctx.fill();
+            // Thumb
+            ctx.beginPath();
+            ctx.arc(-13, 5, 1.2, 0, Math.PI * 2);
+            ctx.fill();
 
-            // Legs extended back
+            // Leg definition - boots planted proudly
             ctx.fillStyle = '#0056B3';
-            ctx.fillRect(-2, -2, 16, 1.5);
-            ctx.fillRect(-2, 1.5, 16, 1.5);
+            ctx.fillRect(-3, -3, 14, 2);
+            ctx.fillRect(-3, 2, 14, 2);
 
-            // Boots
-            ctx.fillStyle = '#000';
-            ctx.fillRect(13, -2, 2, 1.5);
-            ctx.fillRect(13, 1.5, 2, 1.5);
+            // Boots - strong stance
+            ctx.fillStyle = '#FFD700';
+            ctx.fillRect(10, -3, 3, 2);
+            ctx.fillRect(10, 2, 3, 2);
 
 
             ctx.restore();
